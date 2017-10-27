@@ -45,6 +45,7 @@
     replace: '"{{ item.name }}" "{{ item.pass }}"'
   with_items: "{{ pgbouncer_auth_users | default([]) }}"
   register: pgbouncer_auth_users_results
+  no_log: true
   tags:
     - deploy
 
@@ -57,6 +58,7 @@
   when: "not {{ item.changed }}"
   with_items: "{{ pgbouncer_auth_users_results.results | default([]) }}"
   register: pgbouncer_auth_changed
+  no_log: true
   tags:
     - deploy
 
