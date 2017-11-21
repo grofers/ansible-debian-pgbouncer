@@ -24,3 +24,9 @@
     name: postgresql-client
     state: installed
   when: pgbouncer_install_pg_client == True
+
+- name: PGBouncer | Install psycopg2 for pgbouncer collectd plugin
+  pip:
+    name: psycopg2
+    state: present
+    executable: "/usr/bin/pip"

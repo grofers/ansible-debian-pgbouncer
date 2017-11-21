@@ -1,2 +1,6 @@
 ---
 # handlers file for .
+- name: restart collectd
+  service:
+    name: collectd
+    state: restarted

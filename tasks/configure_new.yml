@@ -1,4 +1,23 @@
 ---
+- set_fact:
+    pgbouncer_collectd_user: stats_reader
+    pgbouncer_collectd_pass: "{{ lookup('password', '/tmp/pgbouncer_pass length=15') }}"
+  tags: monitoring
+
+- set_fact:
+    pgbouncer_stats_users: "{{ pgbouncer_stats_users.split(', ') | union([pgbouncer_collectd_user]) | join(', ') }}"
+  when: pgbouncer_stats_users != ""
+  tags: monitoring
+
+- set_fact:
+    pgbouncer_stats_users: "{{ pgbouncer_collectd_user }}"
+  when: pgbouncer_stats_users == ""
+  tags: monitoring
+
+- set_fact:
+    pgbouncer_auth_users: "{{ pgbouncer_auth_users | default([]) + [ {'name': pgbouncer_collectd_user, 'pass': pgbouncer_collectd_pass} ] }}"
+  tags: monitoring
+
 - name: PGBouncer | Create database conf directory
   file:
     path: "{{ pgbouncer_conf_dir }}"

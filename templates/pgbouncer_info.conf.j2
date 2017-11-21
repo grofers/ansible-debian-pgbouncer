@@ -1,0 +1,16 @@
+<LoadPlugin python>
+  Globals true
+</LoadPlugin>
+
+<Plugin python>
+  ModulePath "/usr/share/collectd/python"
+  Import "pgbouncer_info"
+
+  <Module pgbouncer_info>
+    Host "localhost"
+    Port 6432
+    Database "pgbouncer"
+    User "{{ pgbouncer_collectd_user }}"
+    Password "{{ pgbouncer_collectd_pass }}"
+  </Module>
+</Plugin>

@@ -1,0 +1,20 @@
+---
+- name: deploy collectd pgbouncer plugin
+  copy:
+    src: "pgbouncer_info.py"
+    dest: "/usr/share/collectd/python/pgbouncer_info.py"
+    mode: 0755
+    owner: "root"
+    group: "root"
+  notify:
+    - restart collectd
+
+- name: deploy collectd pgbouncer plugin configuration
+  template:
+    src: "pgbouncer_info.conf.j2"
+    dest: "/etc/collectd/collectd.conf.d/pgbouncer_info.conf"
+    mode: 0644
+    owner: "root"
+    group: "root"
+  notify:
+    - restart collectd

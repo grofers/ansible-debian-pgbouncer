@@ -33,3 +33,6 @@
   when: pgbouncer_conf_changed.changed == True or pgbouncer_auth_changed.changed == True or pgbouncer_auth_users_results.changed == True
   tags:
     - deploy
+
+- include: monitoring.yml
+  tags: monitoring
