@@ -25,6 +25,11 @@
     state: installed
   when: pgbouncer_install_pg_client == True
 
+- name: PGBouncer | Install libpq-dev from apt repo
+  apt:
+    name: libpq-dev
+    state: installed
+
 - name: PGBouncer | Install psycopg2 for pgbouncer collectd plugin
   pip:
     name: psycopg2
