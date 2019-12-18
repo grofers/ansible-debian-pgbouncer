@@ -3,7 +3,7 @@
 - include: install.yml
 
 - name: PGBouncer | Check pgbouncer version
-  shell: pgbouncer --version | awk '{print $3}'
+  shell: pgbouncer --version | awk '{if($2 == "version") print $3; else print $2 }'
   register: pgbouncer_installed_version
   tags:
     - deploy
